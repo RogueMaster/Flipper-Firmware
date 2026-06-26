@@ -12,9 +12,10 @@
 #define DOLPHIN_STATE_HEADER_MAGIC   0xD0
 #define DOLPHIN_STATE_HEADER_VERSION 0x01
 
-const uint32_t DOLPHIN_LEVELS[] = {100,  200,  300,  450,  600,  750,  950,  1150, 1350, 1600,
-                                   1850, 2100, 2400, 2700, 3000, 3350, 3700, 4050, 4450, 4850,
-                                   5250, 5700, 6150, 6600, 7100, 7600, 8100, 8650, 9999};
+const uint32_t DOLPHIN_LEVELS[] = {500,    1250,   2250,   3500,   5000,  6750,  8750,  11000,
+                                   13500,  16250,  19250,  22500,  26000, 29750, 33750, 38000,
+                                   42500,  47250,  52250,  58250,  65250, 73250, 82250, 92250,
+                                   103250, 115250, 128250, 142250, 157250};
 const size_t DOLPHIN_LEVEL_COUNT = COUNT_OF(DOLPHIN_LEVELS);
 
 DolphinState* dolphin_state_alloc(void) {

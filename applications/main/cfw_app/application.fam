@@ -1,0 +1,11 @@
+App(
+    appid="cfw_app",
+    name="CFW Settings",
+    apptype=FlipperAppType.MENUEXTERNAL,
+    entry_point="cfw_app",
+    stack_size=2 * 1024,
+    flags=["InsomniaSafe"],
+    icon="A_RM_14",
+    order=90,
+    fap_category="assets",
+)

@@ -44,6 +44,10 @@ void dolphin_set_settings(Dolphin* dolphin, DolphinSettings* settings);
  */
 DolphinStats dolphin_stats(Dolphin* dolphin);
 
+/** GET RANDOM 3PT DEED
+ */
+DolphinDeed getRandomDeed(void);
+
 /** Flush dolphin queue and save state
  * Thread safe, blocking
  */

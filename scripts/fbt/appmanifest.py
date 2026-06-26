@@ -167,11 +167,12 @@ class AppManager:
                         f"App {kw.get('appid')} of type {apptype} cannot have '{app_property}' in manifest"
                     )
         else:
-            for app_property in ("fap_extbuild", "fap_private_libs", "fap_icon_assets"):
+            for app_property in ("fap_extbuild", "fap_private_libs"):
                 if kw.get(app_property):
                     raise FlipperManifestException(
                         f"App {kw.get('appid')} of type {apptype} must not have '{app_property}' in manifest"
                     )
+            # for app_property in ("fap_extbuild", "fap_private_libs", "fap_icon_assets"):
 
     def load_manifest(self, app_manifest_path: str, app_dir_node: object):
         if not os.path.exists(app_manifest_path):

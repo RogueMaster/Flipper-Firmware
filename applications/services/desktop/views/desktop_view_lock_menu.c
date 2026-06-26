@@ -1,7 +1,7 @@
 #include <furi.h>
 #include <gui/elements.h>
 #include <assets_icons.h>
-#include <momentum/momentum.h>
+#include <cfw/cfw.h>
 #include <furi_hal_rtc.h>
 
 #include "../desktop_i.h"
@@ -101,7 +101,7 @@ void desktop_lock_menu_draw_callback(Canvas* canvas, void* model) {
             break;
         case DesktopLockMenuIndexDarkMode:
             icon = &I_CC_DarkMode_16x16;
-            enabled = momentum_settings.dark_mode;
+            enabled = cfw_settings.dark_mode;
             break;
         case DesktopLockMenuIndexLock:
             icon = &I_CC_Lock_16x16;
@@ -167,7 +167,7 @@ void desktop_lock_menu_draw_callback(Canvas* canvas, void* model) {
     }
 
     if(m->show_lock_popup) {
-        if(momentum_settings.popup_overlay) {
+        if(cfw_settings.popup_overlay) {
             canvas_draw_overlay(canvas);
         }
         canvas_set_font(canvas, FontSecondary);
@@ -292,7 +292,7 @@ bool desktop_lock_menu_input_callback(InputEvent* event, void* context) {
                 desktop_event = DesktopLockMenuEventSettings;
                 break;
             case DesktopLockMenuIndexDarkMode:
-                momentum_settings.dark_mode = !momentum_settings.dark_mode;
+                cfw_settings.dark_mode = !cfw_settings.dark_mode;
                 lock_menu->save_momentum = true;
                 break;
             case DesktopLockMenuIndexBluetooth:

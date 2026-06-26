@@ -4,7 +4,7 @@ import os
 from pathlib import Path
 
 from flipper.app import App
-from PIL import Image
+from PIL import Image, ImageOps
 
 _logger = logging.getLogger(__name__)
 
@@ -57,15 +57,10 @@ class ImageLint(App):
     def _gather_images(self, folders):
         images = []
         for folder in folders:
-            exclude = folder.startswith("!")
-            for dirpath, _, filenames in os.walk(folder.removeprefix("!")):
+            for dirpath, _, filenames in os.walk(folder):
                 for filename in filenames:
                     if self.is_file_an_icon(filename):
-                        filepath = os.path.join(dirpath, filename)
-                        if exclude:
-                            images.remove(filepath)
-                        else:
-                            images.append(filepath)
+                        images.append(os.path.join(dirpath, filename))
         return images
 
     def is_file_an_icon(self, filename):

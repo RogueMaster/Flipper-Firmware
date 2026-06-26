@@ -4,7 +4,7 @@
 #include <toolbox/saved_struct.h>
 #include <stdbool.h>
 #include <loader/loader.h>
-#include <momentum/momentum.h>
+#include <cfw/cfw.h>
 
 #include "../desktop_i.h"
 #include <desktop/desktop_settings.h>
@@ -47,7 +47,7 @@ void desktop_scene_lock_menu_save_settings(Desktop* desktop) {
         desktop->lock_menu->save_notification = false;
     }
     if(desktop->lock_menu->save_momentum) {
-        momentum_settings_save();
+        cfw_settings_save();
         desktop->lock_menu->save_momentum = false;
     }
     if(desktop->lock_menu->save_bt) {

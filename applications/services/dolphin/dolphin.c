@@ -2,7 +2,7 @@
 
 #include <furi_hal.h>
 #include <storage/storage.h>
-#include <momentum/momentum.h>
+#include <cfw/cfw.h>
 
 #define TAG "Dolphin"
 
@@ -17,7 +17,7 @@
 #define FLUSH_TIMEOUT_TICKS (SECONDS_IN_TICKS(30UL))
 
 #ifndef DOLPHIN_DEBUG
-#define BUTTHURT_INCREASE_PERIOD_TICKS   (SECONDS_IN_TICKS(momentum_settings.butthurt_timer))
+#define BUTTHURT_INCREASE_PERIOD_TICKS   (SECONDS_IN_TICKS(cfw_settings.butthurt_timer))
 #define CLEAR_LIMITS_PERIOD_TICKS        (HOURS_IN_TICKS(24UL))
 #define CLEAR_LIMITS_UPDATE_PERIOD_TICKS (HOURS_IN_TICKS(1UL))
 #else
@@ -35,6 +35,18 @@ static void dolphin_event_send_async(Dolphin* dolphin, DolphinEvent* event);
 static void dolphin_event_send_wait(Dolphin* dolphin, DolphinEvent* event);
 
 // Public API
+
+DolphinDeed getRandomDeed(void) {
+    DolphinDeed returnGrp[14] = {1, 5, 8, 10, 12, 15, 17, 20, 21, 25, 26, 28, 29, 32};
+    static bool rand_generator_inited = false;
+    if(!rand_generator_inited) {
+        srand(furi_get_tick());
+        rand_generator_inited = true;
+    }
+    uint8_t diceRoll = (rand() % COUNT_OF(returnGrp)); // JUST TO GET IT GOING? AND FIX BUG
+    diceRoll = (rand() % COUNT_OF(returnGrp));
+    return returnGrp[diceRoll];
+}
 
 void dolphin_deed(DolphinDeed deed) {
     Dolphin* dolphin = furi_record_open(RECORD_DOLPHIN);

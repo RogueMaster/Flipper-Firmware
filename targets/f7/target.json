@@ -46,7 +46,7 @@
         "u8g2",
         "nanopb",
         "update_util",
-        "momentum",
+        "cfw",
         "heatshrink",
         "flipperformat",
         "flipper7",

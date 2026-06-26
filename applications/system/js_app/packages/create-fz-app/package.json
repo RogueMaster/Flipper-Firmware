@@ -5,8 +5,8 @@
   "bin": "index.js",
   "type": "module",
   "keywords": [
-    "momentum",
-    "momentum firmware",
+    "rm",
+    "rm firmware",
     "next-flip",
     "flipper",
     "flipper zero"
@@ -15,7 +15,7 @@
   "license": "GPL-3.0-only",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Next-Flip/Momentum-Firmware.git",
+    "url": "git+https://github.com/RogueMaster/flipperzero-firmware-wPlugins.git",
     "directory": "applications/system/js_app/packages/create-fz-app"
   },
   "dependencies": {

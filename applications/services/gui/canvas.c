@@ -6,8 +6,8 @@
 #include <furi_hal.h>
 #include <stdint.h>
 #include <u8g2_glue.h>
-#include <momentum/asset_packs_i.h>
-#include <momentum/settings.h>
+#include <cfw/asset_packs_i.h>
+#include <cfw/settings.h>
 
 const CanvasFontParameters canvas_font_params[FontTotalNumber] = {
     [FontPrimary] = {.leading_default = 12, .leading_min = 11, .height = 8, .descender = 2},
@@ -147,7 +147,7 @@ const CanvasFontParameters* canvas_get_font_params(const Canvas* canvas, Font fo
 
 void canvas_clear(Canvas* canvas) {
     furi_check(canvas);
-    if(momentum_settings.dark_mode) {
+    if(cfw_settings.dark_mode) {
         u8g2_FillBuffer(&canvas->fb);
     } else {
         u8g2_ClearBuffer(&canvas->fb);
@@ -156,7 +156,7 @@ void canvas_clear(Canvas* canvas) {
 
 void canvas_set_color(Canvas* canvas, Color color) {
     furi_check(canvas);
-    if(momentum_settings.dark_mode) {
+    if(cfw_settings.dark_mode) {
         if(color == ColorBlack) {
             color = ColorWhite;
         } else if(color == ColorWhite) {
@@ -172,7 +172,7 @@ void canvas_set_font_direction(Canvas* canvas, CanvasDirection dir) {
 }
 
 void canvas_invert_color(Canvas* canvas) {
-    if(canvas->fb.draw_color == ColorXOR && momentum_settings.dark_mode) {
+    if(canvas->fb.draw_color == ColorXOR && cfw_settings.dark_mode) {
         // XOR is 0x02, invert changes it to 0x00 which is White
         // Basically like resetting to background color
         // In Dark Mode, background color is Black instead

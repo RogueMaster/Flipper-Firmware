@@ -4,7 +4,7 @@
 #include <storage/storage.h>
 #include <dialogs/dialogs.h>
 #include <flipper_application/flipper_application.h>
-#include <momentum/momentum.h>
+#include <cfw/cfw.h>
 
 static bool keybinds_fap_selector_item_callback(
     FuriString* file_path,

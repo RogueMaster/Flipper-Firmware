@@ -25,7 +25,7 @@ const Iso15693_3Data* iso15693_3_poller_get_data(Iso15693_3Poller* instance);
  * @brief Enumeration of possible Iso15693_3 poller event types.
  */
 typedef enum {
-    Iso15693_3PollerEventTypeError, /**< An error occured during activation procedure. */
+    Iso15693_3PollerEventTypeError, /**< An error occurred during activation procedure. */
     Iso15693_3PollerEventTypeReady, /**< The card was activated by the poller. */
 } Iso15693_3PollerEventType;
 

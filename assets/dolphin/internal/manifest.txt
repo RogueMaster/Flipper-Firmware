@@ -2,7 +2,7 @@ Filetype: Flipper Animation Manifest
 Version: 1
 
 # Animation 1
-Name: L1_AnimationError_128x64
+Name: wrenchathome_F0Pattern_128x64
 Min butthurt: 0
 Max butthurt: 14
 Min level: 1
@@ -15,7 +15,7 @@ Min butthurt: 0
 Max butthurt: 14
 Min level: 1
 Max level: 30
-Weight: 3
+Weight: 1
 
 # Animation 3
 Name: L1_NoSd_128x49
@@ -23,5 +23,5 @@ Min butthurt: 0
 Max butthurt: 14
 Min level: 1
 Max level: 30
-Weight: 6
+Weight: 1
 

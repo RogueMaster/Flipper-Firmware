@@ -1,9 +1,9 @@
 #include "subghz_gps.h"
 #include "minmea.h"
 
-#include <momentum/momentum.h>
+#include <cfw/cfw.h>
 
-#define UART_CH (momentum_settings.uart_nmea_channel)
+#define UART_CH (cfw_settings.uart_nmea_channel)
 
 typedef enum {
     WorkerEvtStop = (1 << 0),

@@ -13,11 +13,11 @@
 #include "animation_storage.h"
 #include "animation_manager.h"
 
-#include <momentum/momentum.h>
+#include <cfw/cfw.h>
 
 #define TAG "AnimationManager"
 
-#define HARDCODED_ANIMATION_NAME   "L1_AnimationError_128x64"
+#define HARDCODED_ANIMATION_NAME   "wrenchathome_F0Pattern_128x64"
 #define NO_SD_ANIMATION_NAME       "L1_NoSd_128x49"
 #define BAD_BATTERY_ANIMATION_NAME "L1_BadBattery_128x47"
 
@@ -218,8 +218,8 @@ static void animation_manager_start_new_idle(AnimationManager* animation_manager
     const BubbleAnimation* bubble_animation =
         animation_storage_get_bubble_animation(animation_manager->current_animation);
     animation_manager->state = AnimationManagerStateIdle;
-    int32_t duration = (momentum_settings.cycle_anims == 0) ? (bubble_animation->duration) :
-                                                              (momentum_settings.cycle_anims);
+    int32_t duration = (cfw_settings.cycle_anims == 0) ? (bubble_animation->duration) :
+                                                         (cfw_settings.cycle_anims);
     furi_timer_start(
         animation_manager->idle_animation_timer, (duration > 0) ? (duration * 1000) : 0);
 }
@@ -377,7 +377,7 @@ static bool animation_manager_is_valid_idle_animation(
 
         result = (sd_status == FSE_NOT_READY);
     }
-    if(!momentum_settings.unlock_anims) {
+    if(!cfw_settings.unlock_anims) {
         if((stats->butthurt < info->min_butthurt) || (stats->butthurt > info->max_butthurt)) {
             result = false;
         }
@@ -572,9 +572,9 @@ void animation_manager_load_and_continue_animation(AnimationManager* animation_m
                     } else {
                         const BubbleAnimation* animation = animation_storage_get_bubble_animation(
                             animation_manager->current_animation);
-                        int32_t duration = (momentum_settings.cycle_anims == 0) ?
+                        int32_t duration = (cfw_settings.cycle_anims == 0) ?
                                                (animation->duration) :
-                                               (momentum_settings.cycle_anims);
+                                               (cfw_settings.cycle_anims);
                         furi_timer_start(
                             animation_manager->idle_animation_timer,
                             (duration > 0) ? (duration * 1000) : 0);
