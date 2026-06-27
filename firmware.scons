@@ -32,7 +32,7 @@ env = ENV.Clone(
         # Not C code
         Dir("!applications/system/js_app/packages"),
         # Avoid merge conflicts
-        Dir("!applications/external"),
+        # Dir("!applications/external"),
     ],
     LIBPATH=[
         "${LIB_DIST_DIR}",

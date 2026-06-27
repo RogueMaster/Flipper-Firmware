@@ -38,8 +38,8 @@ void desktop_keybinds_migrate(Desktop* desktop) {
                     FuriString* keybind = furi_string_alloc_set(old[type][key].data);
                     if(furi_string_empty(keybind)) {
                         furi_string_set_str(keybind, "_");
-                    } else if(furi_string_equal(keybind, EXT_PATH("apps/Misc/nightstand.fap"))) {
-                        furi_string_set(keybind, "Clock");
+                    } else if(furi_string_equal(keybind, EXT_PATH("apps/Main/dab_timer.fap"))) {
+                        furi_string_set(keybind, "Dab Timer");
                     } else if(furi_string_equal(keybind, "RFID")) {
                         furi_string_set(keybind, "125 kHz RFID");
                     } else if(furi_string_equal(keybind, "SubGHz")) {
@@ -64,7 +64,7 @@ const char* desktop_keybinds_defaults[DesktopKeybindTypeMAX][DesktopKeybindKeyMA
             [DesktopKeybindKeyUp] = "Lock Menu",
             [DesktopKeybindKeyDown] = "Archive",
             [DesktopKeybindKeyRight] = "Passport",
-            [DesktopKeybindKeyLeft] = "Clock",
+            [DesktopKeybindKeyLeft] = "Dab Timer",
         },
     [DesktopKeybindTypeHold] =
         {
@@ -204,7 +204,7 @@ void desktop_run_keybind(Desktop* desktop, InputType _type, InputKey _key) {
         loader_start_detached_with_gui_error(desktop->loader, LOADER_APPLICATIONS_NAME, NULL);
     } else if(furi_string_equal(keybind, "Archive")) {
         desktop_launch_archive(desktop, NULL);
-    } else if(furi_string_equal(keybind, "Clock")) {
+    } else if(furi_string_equal(keybind, "Dab Timer")) {
         loader_start_detached_with_gui_error(
             desktop->loader, EXT_PATH("apps/Main/dab_timer.fap"), "");
     } else if(furi_string_equal(keybind, "Passport")) {

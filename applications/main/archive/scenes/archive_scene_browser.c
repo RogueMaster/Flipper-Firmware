@@ -26,11 +26,11 @@ const char* archive_get_flipper_app_name(ArchiveFileTypeEnum file_type) {
     case ArchiveFileTypeInfrared:
         return "Infrared";
     case ArchiveFileTypeSubghzPlaylist:
-        return EXT_PATH("apps/Sub-Ghz/subghz_playlist.fap");
+        return EXT_PATH("apps/Sub-GHz/subghz_playlist.fap");
     case ArchiveFileTypeSubghzRemote:
-        return EXT_PATH("apps/Sub-Ghz/subghz_remote.fap");
+        return EXT_PATH("apps/Sub-GHz/subghz_remote.fap");
     case ArchiveFileTypeProtoPirate:
-        return EXT_PATH("apps/Sub-Ghz/proto_pirate.fap");
+        return EXT_PATH("apps/Sub-GHz/proto_pirate.fap");
     case ArchiveFileTypeInfraredRemote:
         return EXT_PATH("apps/Infrared/ir_remote.fap");
     case ArchiveFileTypeBadUsb:
@@ -51,7 +51,7 @@ const char* archive_get_flipper_app_name(ArchiveFileTypeEnum file_type) {
         return EXT_PATH("apps/USB/mass_storage.fap");
     case ArchiveFileTypeJS:
 #ifdef JS_RUNNER_FAP
-        return EXT_PATH("apps/assets/js_app.fap");
+        return EXT_PATH("apps/Main/js_app.fap");
 #else
         return "JS Runner";
 #endif

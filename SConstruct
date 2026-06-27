@@ -345,7 +345,7 @@ firmware_env.Append(
         "applications",
         "assets",
         # Avoid merge conflicts
-        "!applications/external",
+        # "!applications/external",
     ],
 )
 
