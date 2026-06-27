@@ -365,7 +365,7 @@ black_base_args = [
     '"(\\.scons|\\.py|SConscript|SConstruct|\\.fam)$"',
     # Avoid merge conflicts
     "--exclude",
-    '"applications/external"',
+    '"(upython/flipperzero/random\\.py)$"',
 ]
 
 distenv.PhonyTarget(
