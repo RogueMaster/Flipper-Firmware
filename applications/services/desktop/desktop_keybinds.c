@@ -44,8 +44,8 @@ void desktop_keybinds_migrate(Desktop* desktop) {
                         furi_string_set(keybind, "125 kHz RFID");
                     } else if(furi_string_equal(keybind, "SubGHz")) {
                         furi_string_set(keybind, "Sub-GHz");
-                    } else if(furi_string_equal(keybind, "Xtreme")) {
-                        furi_string_set(keybind, "Momentum");
+                    } else if(furi_string_equal(keybind, "CFW")) {
+                        furi_string_set(keybind, "CFW");
                     }
                     new[type][key] = keybind;
                 }
@@ -206,7 +206,10 @@ void desktop_run_keybind(Desktop* desktop, InputType _type, InputKey _key) {
         desktop_launch_archive(desktop, NULL);
     } else if(furi_string_equal(keybind, "Clock")) {
         loader_start_detached_with_gui_error(
-            desktop->loader, EXT_PATH("apps/Tools/nightstand.fap"), "");
+            desktop->loader, EXT_PATH("apps/Main/dab_timer.fap"), "");
+    } else if(furi_string_equal(keybind, "Passport")) {
+        loader_start_detached_with_gui_error(
+            desktop->loader, EXT_PATH("apps/Settings/passport.fap"), "");
     } else if(furi_string_equal(keybind, "Device Info")) {
         loader_start_detached_with_gui_error(desktop->loader, "Power", "about_battery");
     } else if(furi_string_equal(keybind, "Lock Menu")) {

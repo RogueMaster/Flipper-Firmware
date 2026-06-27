@@ -9,6 +9,7 @@ Header,+,applications/services/cli/cli.h,,
 Header,+,applications/services/cli/cli_vcp.h,,
 Header,+,applications/services/dialogs/dialogs.h,,
 Header,+,applications/services/dolphin/dolphin.h,,
+Header,+,applications/services/dolphin/helpers/dolphin_state.h,,
 Header,+,applications/services/expansion/expansion.h,,
 Header,+,applications/services/gui/elements.h,,
 Header,+,applications/services/gui/gui.h,,
@@ -811,6 +812,7 @@ Function,+,ble_svc_serial_update_tx,_Bool,"BleServiceSerial*, uint8_t*, uint16_t
 Function,-,bsearch,void*,"const void*, const void*, size_t, size_t, __compar_fn_t"
 Function,+,bt_disconnect,void,Bt*
 Function,+,bt_forget_bonded_devices,void,Bt*
+Function,+,bt_get_status,BtStatus,Bt*
 Function,+,bt_keys_storage_alloc,BtKeysStorage*,const char*
 Function,+,bt_keys_storage_delete,_Bool,BtKeysStorage*
 Function,+,bt_keys_storage_free,void,BtKeysStorage*
@@ -1031,10 +1033,24 @@ Function,+,dolphin_deed_get_app,DolphinApp,DolphinDeed
 Function,+,dolphin_deed_get_app_limit,uint8_t,DolphinApp
 Function,+,dolphin_deed_get_weight,uint8_t,DolphinDeed
 Function,+,dolphin_flush,void,Dolphin*
+Function,-,dolphin_get_level,uint8_t,uint32_t
 Function,+,dolphin_get_pubsub,FuriPubSub*,Dolphin*
 Function,+,dolphin_get_settings,void,"Dolphin*, DolphinSettings*"
 Function,+,dolphin_reload_state,void,Dolphin*
 Function,+,dolphin_set_settings,void,"Dolphin*, DolphinSettings*"
+Function,-,dolphin_state_alloc,DolphinState*,
+Function,-,dolphin_state_butthurted,void,DolphinState*
+Function,+,dolphin_state_clear_limits,void,DolphinState*
+Function,-,dolphin_state_free,void,DolphinState*
+Function,-,dolphin_state_increase_level,void,DolphinState*
+Function,-,dolphin_state_is_levelup,_Bool,uint32_t
+Function,-,dolphin_state_load,void,DolphinState*
+Function,+,dolphin_state_max_level,uint8_t,
+Function,-,dolphin_state_on_deed,void,"DolphinState*, DolphinDeed"
+Function,+,dolphin_state_save,void,DolphinState*
+Function,-,dolphin_state_timestamp,uint64_t,
+Function,+,dolphin_state_xp_above_last_levelup,uint32_t,uint32_t
+Function,+,dolphin_state_xp_to_levelup,uint32_t,uint32_t
 Function,+,dolphin_stats,DolphinStats,Dolphin*
 Function,+,dolphin_upgrade_level,void,Dolphin*
 Function,-,dprintf,int,"int, const char*, ..."
@@ -4083,6 +4099,8 @@ Variable,+,A_Settings_14,const Icon,
 Variable,+,A_Sub1ghz_14,const Icon,
 Variable,+,A_U2F_14,const Icon,
 Variable,+,A_iButton_14,const Icon,
+Variable,+,DOLPHIN_LEVELS,const uint32_t[],
+Variable,+,DOLPHIN_LEVEL_COUNT,const size_t,
 Variable,+,FLIPPER_APPS,const FlipperInternalApplication[],
 Variable,+,FLIPPER_APPS_COUNT,const size_t,
 Variable,-,FLIPPER_ARCHIVE,const FlipperInternalApplication,
@@ -4104,6 +4122,7 @@ Variable,+,ICON_PATHS_COUNT,const size_t,
 Variable,-,ITM_RxBuffer,volatile int32_t,
 Variable,+,I_125_10px,const Icon,
 Variable,+,I_ActiveConnection_50x64,const Icon,
+Variable,+,I_AngSmile1_10x12,const Icon,
 Variable,+,I_Apps_10px,const Icon,
 Variable,+,I_ArrowC_1_36x36,const Icon,
 Variable,+,I_ArrowUpEmpty_14x15,const Icon,
@@ -4161,6 +4180,7 @@ Variable,+,I_Dynamic_9x7,const Icon,
 Variable,-,I_Erase_pin_128x64,const Icon,
 Variable,+,I_Error_18x18,const Icon,
 Variable,+,I_Error_62x31,const Icon,
+Variable,+,I_EviSmile1_10x12,const Icon,
 Variable,+,I_EviSmile1_18x21,const Icon,
 Variable,+,I_EviSmile2_18x21,const Icon,
 Variable,+,I_EviWaiting1_18x21,const Icon,

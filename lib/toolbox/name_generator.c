@@ -9,15 +9,16 @@
 #include <cfw/cfw.h>
 
 const char* const name_generator_left[] = {
-    "super",  "big",   "little", "liquid",  "qq",       "cheeky", "thick",
-    "sneaky", "silly", "quick",  "quantum", "kurwa",    "feral",  "smart",
-    "yappy",  "ultra", "whois",  "random",  "looshite",
+    "big",    "cheeky",      "feral",   "great", "liquid", "little", "mini",    "oh_my",
+    "oh_no",  "promiscuous", "quantum", "quick", "random", "silly",  "small",   "smart",
+    "sneaky", "strange",     "super",   "thick", "tricky", "ultra",  "unknown", "whois",
 };
 
 const char* const name_generator_right[] = {
-    "bidet",   "sus",    "fed",    "moroder", "bobr",  "chomik", "sidorovich",
-    "stalker", "yapper", "bnuuy",  "jezyk",   "juzyk", "cult",   "pp",
-    "zalaz",   "breeky", "bunker", "pingwin", "kot",
+    "abyss",      "alarm",   "artefact", "basement", "bidet",    "bunker",   "cellar",  "crawlway",
+    "den",        "door",    "fed",      "fortress", "foxhole",  "gate",     "gateway", "grotto",
+    "hatch",      "kit",     "lair",     "lattice",  "network",  "overlook", "pingwin", "portal",
+    "portcullis", "shelter", "stalker",  "sus",      "trapdoor", "tunnel",   "vault",   "yapper",
 };
 
 void name_generator_make_auto_datetime(

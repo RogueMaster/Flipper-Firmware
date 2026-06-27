@@ -5,6 +5,7 @@
 #include <furi.h>
 #include <input/input.h>
 #include <dolphin/dolphin.h>
+#include <cfw/cfw.h>
 
 #include "../desktop_i.h"
 #include "desktop_view_main.h"

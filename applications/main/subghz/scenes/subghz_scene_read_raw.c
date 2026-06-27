@@ -4,9 +4,8 @@
 #include <lib/subghz/protocols/raw.h>
 #include <toolbox/path.h>
 
-#define TAG "SubGhzSceneReadRAW"
-
-#define RAW_FILE_NAME "RAW_"
+#define RAW_FILE_NAME "R_"
+#define TAG           "SubGhzSceneReadRAW"
 
 bool subghz_scene_read_raw_update_filename(SubGhz* subghz) {
     bool ret = false;

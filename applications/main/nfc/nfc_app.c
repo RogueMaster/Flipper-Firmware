@@ -104,6 +104,13 @@ NfcApp* nfc_app_alloc(void) {
     view_dispatcher_add_view(
         instance->view_dispatcher, NfcViewTextInput, text_input_get_view(instance->text_input));
 
+    // NDEF Text Input (extended keyboard with punctuation)
+    instance->ndef_text_input = ndef_text_input_alloc();
+    view_dispatcher_add_view(
+        instance->view_dispatcher,
+        NfcViewNdefTextInput,
+        ndef_text_input_get_view(instance->ndef_text_input));
+
     // Byte Input
     instance->byte_input = byte_input_alloc();
     view_dispatcher_add_view(
@@ -135,6 +142,9 @@ NfcApp* nfc_app_alloc(void) {
     instance->iso14443_3a_edit_data = iso14443_3a_alloc();
     instance->file_path = furi_string_alloc_set(NFC_APP_FOLDER);
     instance->file_name = furi_string_alloc();
+
+    instance->ndef_write.primary = furi_string_alloc();
+    instance->ndef_write.secondary = furi_string_alloc();
 
     return instance;
 }
@@ -182,6 +192,10 @@ void nfc_app_free(NfcApp* instance) {
     view_dispatcher_remove_view(instance->view_dispatcher, NfcViewTextInput);
     text_input_free(instance->text_input);
 
+    // NDEF Text Input
+    view_dispatcher_remove_view(instance->view_dispatcher, NfcViewNdefTextInput);
+    ndef_text_input_free(instance->ndef_text_input);
+
     // ByteInput
     view_dispatcher_remove_view(instance->view_dispatcher, NfcViewByteInput);
     byte_input_free(instance->byte_input);
@@ -221,6 +235,9 @@ void nfc_app_free(NfcApp* instance) {
     iso14443_3a_free(instance->iso14443_3a_edit_data);
     furi_string_free(instance->file_path);
     furi_string_free(instance->file_name);
+
+    furi_string_free(instance->ndef_write.primary);
+    furi_string_free(instance->ndef_write.secondary);
 
     free(instance);
 }

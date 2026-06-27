@@ -4,7 +4,7 @@ App(
     apptype=FlipperAppType.EXTERNAL,
     cdefines=["JS_RUNNER_FAP"],
     fap_icon="icon.png",
-    fap_category="assets",
+    fap_category="Main",
     fap_libs=["assets"],
     entry_point="js_app",
     stack_size=2 * 1024,

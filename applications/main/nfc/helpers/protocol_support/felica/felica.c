@@ -105,7 +105,9 @@ static void nfc_scene_read_success_on_enter_felica(NfcApp* instance) {
         if(data->workflow_type == FelicaLite) {
             bool all_unlocked = data->blocks_read == data->blocks_total;
             furi_string_cat_printf(
-                temp_str, "\e#%s\n", all_unlocked ? "All Blocks Unlocked" : "Some Blocks Locked");
+                temp_str,
+                "\e#%s\n",
+                all_unlocked ? "All Blocks Are Unlocked" : "Some Blocks Are Locked");
             nfc_render_felica_idm(data, NfcProtocolFormatTypeShort, temp_str);
             uint8_t* ck_data = instance->felica_auth->card_key.data;
             furi_string_cat_printf(temp_str, "Key:");
@@ -132,7 +134,8 @@ static void nfc_scene_emulate_on_enter_felica(NfcApp* instance) {
 
 static void nfc_scene_read_menu_on_enter_felica(NfcApp* instance) {
     const FelicaData* data = nfc_device_get_data(instance->nfc_device, NfcProtocolFelica);
-    if(data->blocks_read != data->blocks_total) {
+    if(data->blocks_read != data->blocks_total &&
+       !scene_manager_has_previous_scene(instance->scene_manager, NfcSceneGenerateInfo)) {
         submenu_add_item(
             instance->submenu,
             "Unlock",
@@ -144,8 +147,12 @@ static void nfc_scene_read_menu_on_enter_felica(NfcApp* instance) {
 
 static bool nfc_scene_read_menu_on_event_felica(NfcApp* instance, SceneManagerEvent event) {
     if(event.type == SceneManagerEventTypeCustom) {
-        if(event.event == SubmenuIndexUnlock) {
+        switch(event.event) {
+        case SubmenuIndexUnlock:
             scene_manager_next_scene(instance->scene_manager, NfcSceneDesAuthKeyInput);
+            return true;
+        case SubmenuIndexCommonEdit:
+            scene_manager_next_scene(instance->scene_manager, NfcSceneSetUid);
             return true;
         }
     }

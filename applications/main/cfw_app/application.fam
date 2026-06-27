@@ -7,5 +7,5 @@ App(
     flags=["InsomniaSafe"],
     icon="A_RM_14",
     order=90,
-    fap_category="assets",
+    fap_category="Settings",
 )

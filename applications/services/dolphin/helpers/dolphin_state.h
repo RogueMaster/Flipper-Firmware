@@ -6,6 +6,10 @@
 
 #include "dolphin_deed.h"
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 extern const uint32_t DOLPHIN_LEVELS[];
 extern const size_t DOLPHIN_LEVEL_COUNT;
 
@@ -44,6 +48,8 @@ void dolphin_state_clear_limits(DolphinState* dolphin_state);
 
 uint64_t dolphin_state_timestamp(void);
 
+uint8_t dolphin_state_max_level(void);
+
 void dolphin_state_on_deed(DolphinState* dolphin_state, DolphinDeed deed);
 
 void dolphin_state_butthurted(DolphinState* dolphin_state);
@@ -57,3 +63,7 @@ bool dolphin_state_is_levelup(uint32_t icounter);
 void dolphin_state_increase_level(DolphinState* dolphin_state);
 
 uint8_t dolphin_get_level(uint32_t icounter);
+
+#ifdef __cplusplus
+}
+#endif

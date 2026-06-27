@@ -6,6 +6,7 @@ enum VarItemListIndex {
     VarItemListIndexLockscreen,
     VarItemListIndexStatusbar,
     VarItemListIndexFileBrowser,
+    VarItemListIndexPassport,
     VarItemListIndexGeneral,
 };
 
@@ -32,6 +33,9 @@ void cfw_app_scene_interface_on_enter(void* context) {
     variable_item_set_current_value_text(item, ">");
 
     item = variable_item_list_add(var_item_list, "File Browser", 0, NULL, app);
+    variable_item_set_current_value_text(item, ">");
+
+    item = variable_item_list_add(var_item_list, "Passport", 0, NULL, app);
     variable_item_set_current_value_text(item, ">");
 
     item = variable_item_list_add(var_item_list, "General", 0, NULL, app);
@@ -73,6 +77,10 @@ bool cfw_app_scene_interface_on_event(void* context, SceneManagerEvent event) {
         case VarItemListIndexFileBrowser:
             scene_manager_set_scene_state(app->scene_manager, CFWAppSceneInterfaceFilebrowser, 0);
             scene_manager_next_scene(app->scene_manager, CFWAppSceneInterfaceFilebrowser);
+            break;
+        case VarItemListIndexPassport:
+            scene_manager_set_scene_state(app->scene_manager, CFWAppSceneInterfacePassport, 0);
+            scene_manager_next_scene(app->scene_manager, CFWAppSceneInterfacePassport);
             break;
         case VarItemListIndexGeneral:
             scene_manager_set_scene_state(app->scene_manager, CFWAppSceneInterfaceGeneral, 0);

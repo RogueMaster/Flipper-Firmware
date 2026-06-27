@@ -8,7 +8,12 @@ App(
     stack_size=5 * 1024,
     order=30,
     resources="resources",
-    sources=["*.c*", "!plugins", "!nfc_cli.c", "!cli"],
+    sources=[
+        "*.c*",
+        "!plugins",
+        "!nfc_cli.c",
+        "!cli",
+    ],
     fap_libs=["assets", "mbedtls"],
     fap_icon="icon.png",
     fap_category="NFC",
@@ -188,6 +193,7 @@ App(
     ],
     fal_embedded=True,
 )
+
 App(
     appid="nfc_type_4_tag",
     targets=["f7"],
@@ -217,6 +223,15 @@ App(
 # Parser plugins
 
 App(
+    appid="bambu_parser",
+    apptype=FlipperAppType.PLUGIN,
+    entry_point="bambu_plugin_ep",
+    targets=["f7"],
+    requires=["nfc"],
+    sources=["plugins/supported_cards/bambu.c"],
+)
+
+App(
     appid="all_in_one_parser",
     apptype=FlipperAppType.PLUGIN,
     entry_point="all_in_one_plugin_ep",
@@ -241,6 +256,15 @@ App(
     targets=["f7"],
     requires=["nfc"],
     sources=["plugins/supported_cards/microel.c"],
+)
+
+App(
+    appid="trea_parser",
+    apptype=FlipperAppType.PLUGIN,
+    entry_point="trea_plugin_ep",
+    targets=["f7"],
+    requires=["nfc"],
+    sources=["plugins/supported_cards/trea.c"],
 )
 
 App(
@@ -376,6 +400,15 @@ App(
     targets=["f7"],
     requires=["nfc"],
     sources=["plugins/supported_cards/kazan.c"],
+)
+
+App(
+    appid="andalucia_parser",
+    apptype=FlipperAppType.PLUGIN,
+    entry_point="andalucia_plugin_ep",
+    targets=["f7"],
+    requires=["nfc"],
+    sources=["plugins/supported_cards/andalucia.c"],
 )
 
 App(
@@ -667,4 +700,13 @@ App(
     targets=["f7"],
     requires=["nfc"],
     sources=["plugins/supported_cards/aic.c"],
+)
+
+App(
+    appid="hotels_parser",
+    apptype=FlipperAppType.PLUGIN,
+    entry_point="hotels_plugin_ep",
+    targets=["f7"],
+    requires=["nfc"],
+    sources=["plugins/supported_cards/hotels.c"],
 )

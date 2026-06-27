@@ -22,6 +22,15 @@ typedef enum {
 
 typedef void (*BtStatusChangedCallback)(BtStatus status, void* context);
 
+/** Get BT Status
+* @note Call this to get current status of BT
+*
+* @param bt Bt instance
+*
+* @return BtStatus
+**/
+BtStatus bt_get_status(Bt* bt);
+
 /** Change BLE Profile
  * @note Call of this function leads to 2nd core restart
  *

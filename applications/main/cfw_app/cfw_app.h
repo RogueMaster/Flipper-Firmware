@@ -39,6 +39,7 @@
 #include <m-array.h>
 #include <toolbox/stream/file_stream.h>
 
+#include "helpers/passport_settings.h"
 #include "scenes/cfw_app_scene.h"
 
 ARRAY_DEF(CharList, char*)
@@ -70,6 +71,7 @@ typedef struct {
     CharList_t mainmenu_app_exes;
     uint8_t mainmenu_app_index;
     DesktopSettings desktop_settings;
+    PassportSettings passport;
     bool subghz_use_defaults;
     FrequencyList_t subghz_static_freqs;
     uint8_t subghz_static_index;

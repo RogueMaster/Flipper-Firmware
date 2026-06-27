@@ -87,7 +87,7 @@ bool subghz_scene_start_on_event(void* context, SceneManagerEvent event) {
             furi_check(loader_get_application_launch_path(loader, self_path));
             loader_enqueue_launch(
                 loader,
-                EXT_PATH("apps/assets/subghz_add_manually.fap"),
+                EXT_PATH("apps/Sub-GHz/subghz_add_manually.fap"),
                 arg,
                 LoaderDeferredLaunchFlagGui);
             loader_enqueue_launch(

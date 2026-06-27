@@ -147,7 +147,7 @@ void hid_ble_adjust_config(BadUsbHidConfig* hid_cfg) {
 
     if(hid_cfg->ble.name[0] == '\0') {
         // Derive badusb name from Flipper name
-        const char* badusb_device_name_prefix = "BadKB";
+        const char* badusb_device_name_prefix = "BadUSB";
         snprintf(
             hid_cfg->ble.name,
             sizeof(hid_cfg->ble.name),

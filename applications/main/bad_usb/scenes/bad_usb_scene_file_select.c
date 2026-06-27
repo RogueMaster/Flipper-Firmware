@@ -4,33 +4,6 @@
 static bool bad_usb_file_select(BadUsbApp* bad_usb) {
     furi_assert(bad_usb);
 
-    bad_usb_app_show_loading_popup(bad_usb, true);
-    Storage* storage = furi_record_open(RECORD_STORAGE);
-    if(storage_dir_exists(storage, EXT_PATH("badkb"))) {
-        DialogMessage* message = dialog_message_alloc();
-        dialog_message_set_header(message, "Migrate Scripts?", 64, 0, AlignCenter, AlignTop);
-        dialog_message_set_buttons(message, "No", NULL, "Yes");
-        dialog_message_set_text(
-            message,
-            "Momentum uses the 'badusb'\n"
-            "folder for compatibility.\n"
-            "Want to migrate from\n"
-            "'badkb' folder?",
-            64,
-            32,
-            AlignCenter,
-            AlignCenter);
-        DialogMessageButton res = dialog_message_show(furi_record_open(RECORD_DIALOGS), message);
-        dialog_message_free(message);
-        furi_record_close(RECORD_DIALOGS);
-        if(res == DialogMessageButtonRight) {
-            storage_common_migrate(storage, EXT_PATH("badkb"), BAD_USB_APP_BASE_FOLDER);
-        }
-    }
-    storage_simply_mkdir(storage, BAD_USB_APP_BASE_FOLDER);
-    furi_record_close(RECORD_STORAGE);
-    bad_usb_app_show_loading_popup(bad_usb, false);
-
     DialogsFileBrowserOptions browser_options;
     dialog_file_browser_set_basic_options(
         &browser_options, BAD_USB_APP_SCRIPT_EXTENSION, &I_badusb_10px);

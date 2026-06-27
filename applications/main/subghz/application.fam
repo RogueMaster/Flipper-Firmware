@@ -70,7 +70,7 @@ App(
         "scenes/subghz_scene_show_error_sub.c",
     ],
     cdefines=["SUBGHZ_ADD_MANUALLY"],
-    fap_category="assets",
+    fap_category="Sub-GHz",
 )
 
 App(

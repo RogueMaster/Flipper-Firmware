@@ -7,7 +7,7 @@ App(
     provides=["clock_settings_start"],
     stack_size=1 * 1024,
     order=90,
-    fap_category="assets",
+    fap_category="Settings",
 )
 
 App(

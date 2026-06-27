@@ -20,11 +20,9 @@
  */
 #include "nfc_supported_card_plugin.h"
 #include <flipper_application.h>
-
 #include <lib/nfc/protocols/mf_desfire/mf_desfire.h>
-
 #include <bit_lib.h>
-#include <datetime.h>
+#include <datetime/datetime.h>
 #include <locale/locale.h>
 #include <inttypes.h>
 
@@ -119,6 +117,8 @@ static const IdMapping bart_zones[] = {
     {.id = 0x002e, .name = "Warm Springs/South Fremont"},
     {.id = 0x002f, .name = "Milpitas"},
     {.id = 0x0030, .name = "Berryessa/North San Jose"},
+    {.id = 0x0031, .name = "Pittsburg Center"}, // Guessed
+    {.id = 0x0032, .name = "Antioch"},
 };
 static const size_t kNumBARTZones = COUNT(bart_zones);
 

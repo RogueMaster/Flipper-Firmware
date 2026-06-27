@@ -69,8 +69,8 @@ const SubGhzProtocol* const subghz_protocol_registry_items[] = {
     // &tpms_protocol_schrader_gg4,
     &subghz_protocol_bin_raw,
     &subghz_protocol_mastercode,
-    // &subghz_protocol_x10,
-    // &subghz_protocol_hormann_bisecur,
+    &subghz_protocol_x10,
+    &subghz_protocol_hormann_bisecur,
     &subghz_protocol_legrand,
     &subghz_protocol_dickert_mahs,
     &subghz_protocol_gangqi,
@@ -88,8 +88,8 @@ const SubGhzProtocol* const subghz_protocol_registry_items[] = {
     &subghz_protocol_keyfinder,
     &subghz_protocol_nord_ice,
     &subghz_protocol_allstar_firefly,
-    // &subghz_protocol_telcoma_edge,
-    // &subghz_protocol_cardin_s508,
+    &subghz_protocol_telcoma_edge,
+    &subghz_protocol_cardin_s508,
 };
 
 const SubGhzProtocolRegistry subghz_protocol_registry = {

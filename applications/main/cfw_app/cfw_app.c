@@ -480,6 +480,7 @@ void cfw_app_free(CFWApp* app) {
 
 extern int32_t cfw_app(void* p) {
     CFWApp* app = cfw_app_alloc();
+    passport_settings_load(&app->passport);
 
     // Check for command line arguments to navigate to specific scenes
     uint32_t first_scene = CFWAppSceneStart;
