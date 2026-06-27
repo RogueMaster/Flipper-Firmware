@@ -3,6 +3,7 @@
 #include <profiles/serial_profile.h>
 #include "views.h"
 #include <notification/notification_messages.h>
+#include "hid_icons.h"
 #include <dolphin/dolphin.h>
 #include <flipper_format/flipper_format.h>
 
@@ -108,6 +109,7 @@ static void bt_hid_connection_status_changed_callback(BtStatus status, void* con
     hid_mouse_clicker_set_connected_status(hid->hid_mouse_clicker, connected);
     hid_mouse_jiggler_set_connected_status(hid->hid_mouse_jiggler, connected);
     hid_mouse_jiggler_stealth_set_connected_status(hid->hid_mouse_jiggler_stealth, connected);
+    hid_camera_set_connected_status(hid->hid_camera, connected);
     hid_ptt_set_connected_status(hid->hid_ptt, connected);
     hid_tiktok_set_connected_status(hid->hid_tiktok, connected);
 }
@@ -131,6 +133,7 @@ Hid* hid_alloc() {
 
     // View dispatcher
     app->view_dispatcher = view_dispatcher_alloc();
+    view_dispatcher_enable_queue(app->view_dispatcher);
     view_dispatcher_set_event_callback_context(app->view_dispatcher, app);
     view_dispatcher_set_custom_event_callback(app->view_dispatcher, hid_custom_event_callback);
     view_dispatcher_set_navigation_event_callback(app->view_dispatcher, hid_back_event_callback);
@@ -217,6 +220,10 @@ Hid* hid_alloc() {
         HidViewMouseJigglerStealth,
         hid_mouse_jiggler_stealth_get_view(app->hid_mouse_jiggler_stealth));
 
+    // Camera view
+    app->hid_camera = hid_camera_alloc(app);
+    view_dispatcher_add_view(
+        app->view_dispatcher, HidViewCamera, hid_camera_get_view(app->hid_camera));
     // PushToTalk view
     app->hid_ptt_menu = hid_ptt_menu_alloc(app);
     view_dispatcher_add_view(
@@ -265,6 +272,8 @@ void hid_free(Hid* app) {
     hid_mouse_jiggler_free(app->hid_mouse_jiggler);
     view_dispatcher_remove_view(app->view_dispatcher, HidViewMouseJigglerStealth);
     hid_mouse_jiggler_stealth_free(app->hid_mouse_jiggler_stealth);
+    view_dispatcher_remove_view(app->view_dispatcher, HidViewCamera);
+    hid_camera_free(app->hid_camera);
     view_dispatcher_remove_view(app->view_dispatcher, HidViewPushToTalkMenu);
     hid_ptt_menu_free(app->hid_ptt_menu);
     view_dispatcher_remove_view(app->view_dispatcher, HidViewPushToTalk);
@@ -325,7 +334,7 @@ int32_t hid_ble_app(void* p) {
 
     storage_common_migrate(
         storage,
-        EXT_PATH("apps/Tools/" HID_BT_KEYS_STORAGE_NAME),
+        EXT_PATH("apps/Bluetooth/" HID_BT_KEYS_STORAGE_NAME),
         APP_DATA_PATH(HID_BT_KEYS_STORAGE_NAME));
 
     bt_keys_storage_set_storage_path(app->bt, APP_DATA_PATH(HID_BT_KEYS_STORAGE_NAME));

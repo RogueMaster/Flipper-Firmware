@@ -2,6 +2,7 @@
 #include "hid_ptt.h"
 #include <gui/elements.h>
 #include <m-array.h>
+#include <furi.h>
 #include "../hid.h"
 #include "../views.h"
 

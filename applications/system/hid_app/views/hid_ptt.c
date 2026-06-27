@@ -6,6 +6,7 @@
 #include <gui/modules/widget.h>
 #include <furi_hal_power.h>
 #include <furi_hal_rtc.h>
+#include <furi.h>
 #include "../hid.h"
 #include "../views.h"
 
