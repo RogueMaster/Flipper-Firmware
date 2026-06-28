@@ -45,7 +45,7 @@ extern const SensorConnectionInterface
  * 
  * @param handle Pointer to bus
  */
-void unitemp_i2c_acquire(FuriHalI2cBusHandle* handle);
+void unitemp_i2c_acquire(const FuriHalI2cBusHandle* handle);
 
 /**
  * @brief Check the presence of a sensor on the tire

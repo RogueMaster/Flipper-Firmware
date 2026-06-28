@@ -4,7 +4,6 @@
 #include <furi_hal.h>
 #include <lib/flipper_format/flipper_format.h>
 #include "protocols/protocol_items.h"
-#include <storage/storage.h>
 
 static bool pocsag_pager_app_custom_event_callback(void* context, uint32_t event) {
     furi_assert(context);

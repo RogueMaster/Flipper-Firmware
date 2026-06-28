@@ -134,7 +134,7 @@ int32_t fuzzer_start_ibtn(void* p) {
     PacsFuzzerApp* fuzzer_app = fuzzer_app_alloc();
 
     FuzzerConsts app_const = {
-        .custom_dict_folder = APP_ASSETS_PATH("ibutton/ibtnfuzzer"),
+        .custom_dict_folder = APP_ASSETS_PATH("ibutton"),
         .custom_dict_extension = ".txt",
         .key_extension = ".ibtn",
         .path_key_folder = "/ext/ibutton",
@@ -154,7 +154,7 @@ int32_t fuzzer_start_rfid(void* p) {
     PacsFuzzerApp* fuzzer_app = fuzzer_app_alloc();
 
     FuzzerConsts app_const = {
-        .custom_dict_folder = APP_ASSETS_PATH("lfrfid/rfidfuzzer"),
+        .custom_dict_folder = APP_ASSETS_PATH("lfrfid"),
         .custom_dict_extension = ".txt",
         .key_extension = ".rfid",
         .path_key_folder = "/ext/lfrfid",

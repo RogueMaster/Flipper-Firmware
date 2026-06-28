@@ -223,8 +223,9 @@ uint8_t nrf24_rxpacket(const FuriHalSpiBusHandle* handle, uint8_t* packet, uint8
         if(status & 0x80) return 0x80; // hardware error
         if(packet_size == 1)
             packet_size = nrf24_get_packetlen(handle, (status >> 1) & 7);
-        else if(packet_size == 0){
-            buf[0] = R_RX_PL_WID; buf[1] = 0xFF;
+        else if(packet_size == 0) {
+            buf[0] = R_RX_PL_WID;
+            buf[1] = 0xFF;
             nrf24_spi_trx(handle, buf, buf, 2);
             packet_size = buf[1];
         }
@@ -257,7 +258,9 @@ uint8_t nrf24_txpacket(const FuriHalSpiBusHandle* handle, uint8_t* payload, uint
         status = nrf24_status(handle);
     } while(!(status & (TX_DS | MAX_RT)) && furi_get_tick() - start_time < 100UL);
     if(status & MAX_RT) {
-        if(furi_log_get_level() == FuriLogLevelDebug) FURI_LOG_D("NRF", "MAX RT: %X (%X)", nrf24_read_register(handle, REG_OBSERVE_TX), status);
+        if(furi_log_get_level() == FuriLogLevelDebug)
+            FURI_LOG_D(
+                "NRF", "MAX RT: %X (%X)", nrf24_read_register(handle, REG_OBSERVE_TX), status);
         nrf24_flush_tx(handle);
     }
     furi_hal_gpio_write(nrf24_CE_PIN, false);
@@ -373,9 +376,9 @@ void int16_to_bytes(uint16_t val, uint8_t* out, bool bigendian) {
     }
 }
 
-uint8_t nrf24_set_mac(uint8_t mac_addr, uint8_t *mac, uint8_t mlen)
-{
+uint8_t nrf24_set_mac(uint8_t mac_addr, uint8_t* mac, uint8_t mlen) {
     uint8_t addr[5];
-	for(int i = 0; i < mlen; i++) addr[i] = mac[mlen - i - 1];
-	return nrf24_write_buf_reg(nrf24_HANDLE, mac_addr, addr, mlen);
+    for(int i = 0; i < mlen; i++)
+        addr[i] = mac[mlen - i - 1];
+    return nrf24_write_buf_reg(nrf24_HANDLE, mac_addr, addr, mlen);
 }

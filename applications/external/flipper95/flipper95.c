@@ -59,14 +59,13 @@ static bool thread_signal_callback(uint32_t signal, void* arg, void* context) {
 }
 
 static void flipper95_cli_print_usage() {
-    printf(
-        "Stress test your Flipper by calculating Mersenne primes, same as Prime95 does\r\n"
-        "\r\n"
-        "Usage:\r\n" CLI_COMMAND " <cmd> <args>\r\n"
-        "Cmd list:\r\n"
-        "\t" CLI_COMMAND_ADVANCE " M<p:int> - Advance calculations to a Mersenne number M_p\r\n"
-        "\t" CLI_COMMAND_LAST_PRIME "\t\t - Print the last found Mersenne prime\r\n"
-        "\t" CLI_COMMAND_LAST_PERFECT_NUMBER "\t - Print the last found perfect number\r\n");
+    printf("Stress test your Flipper by calculating Mersenne primes, same as Prime95 does\r\n"
+           "\r\n"
+           "Usage:\r\n" CLI_COMMAND " <cmd> <args>\r\n"
+           "Cmd list:\r\n"
+           "\t" CLI_COMMAND_ADVANCE " M<p:int> - Advance calculations to a Mersenne number M_p\r\n"
+           "\t" CLI_COMMAND_LAST_PRIME "\t\t - Print the last found Mersenne prime\r\n"
+           "\t" CLI_COMMAND_LAST_PERFECT_NUMBER "\t - Print the last found perfect number\r\n");
 }
 
 static bool flipper95_cli_set_mnumber(const FuriString* args, Flipper95* instance) {

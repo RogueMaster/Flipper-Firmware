@@ -31,7 +31,7 @@
 #define CLOCK_TIME_FORMAT     "%.2d:%.2d:%.2d"
 #define CLOCK_ISO_DATE_FORMAT "%.4d-%.2d-%.2d"
 
-//static FuriHalSpiBusHandle* spi = &furi_hal_spi_bus_handle_external;
+//static const FuriHalSpiBusHandle* spi = &furi_hal_spi_bus_handle_external;
 
 const GpioPin* const pin_led = &gpio_swclk;
 const GpioPin* const pin_back = &gpio_button_back;
@@ -2348,7 +2348,7 @@ int32_t main_lora_app(void* _p) {
     UNUSED(_p);
 
     static FuriHalSpiBusHandle spi_handle;
-    FuriHalSpiBusHandle* spi;
+    const FuriHalSpiBusHandle* spi;
 
     memcpy(&spi_handle, &furi_hal_spi_bus_handle_external, sizeof(FuriHalSpiBusHandle));
     spi_handle.cs = &gpio_ext_pc0;

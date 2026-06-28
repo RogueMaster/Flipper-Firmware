@@ -1,5 +1,6 @@
 #include <furi_hal_light.h>
 #include <pokemon_icons.h>
+#include <expansion/expansion.h>
 
 #include <src/include/pokemon_app.h>
 #include <src/include/pokemon_data.h>
@@ -108,6 +109,10 @@ void free_app(PokemonFap* pokemon_fap) {
 
 int32_t pokemon_app(void* p) {
     UNUSED(p);
+
+    Expansion* expansion = furi_record_open(RECORD_EXPANSION);
+    expansion_disable(expansion);
+
     PokemonFap* pokemon_fap = pokemon_alloc();
 
     furi_hal_light_set(LightRed, 0x00);
@@ -119,6 +124,9 @@ int32_t pokemon_app(void* p) {
 
     // Free resources
     free_app(pokemon_fap);
+
+    expansion_enable(expansion);
+    furi_record_close(RECORD_EXPANSION);
 
     return 0;
 }

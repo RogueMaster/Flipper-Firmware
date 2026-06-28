@@ -8,56 +8,56 @@
 extern "C" {
 #endif
 
-#define R_REGISTER 0x00
-#define W_REGISTER 0x20
-#define REGISTER_MASK 0x1F
-#define ACTIVATE 0x50
-#define R_RX_PL_WID 0x60
-#define R_RX_PAYLOAD 0x61
-#define W_TX_PAYLOAD 0xA0
+#define R_REGISTER         0x00
+#define W_REGISTER         0x20
+#define REGISTER_MASK      0x1F
+#define ACTIVATE           0x50
+#define R_RX_PL_WID        0x60
+#define R_RX_PAYLOAD       0x61
+#define W_TX_PAYLOAD       0xA0
 #define W_TX_PAYLOAD_NOACK 0xB0
-#define W_ACK_PAYLOAD 0xA8
-#define FLUSH_TX 0xE1
-#define FLUSH_RX 0xE2
-#define REUSE_TX_PL 0xE3
-#define RF24_NOP 0xFF
+#define W_ACK_PAYLOAD      0xA8
+#define FLUSH_TX           0xE1
+#define FLUSH_RX           0xE2
+#define REUSE_TX_PL        0xE3
+#define RF24_NOP           0xFF
 
-#define REG_CONFIG 0x00
-#define REG_EN_AA 0x01
-#define REG_EN_RXADDR 0x02
-#define REG_SETUP_AW 0x03
-#define REG_SETUP_RETR 0x04
-#define REG_DYNPD 0x1C
-#define REG_FEATURE 0x1D
-#define REG_RF_SETUP 0x06
-#define REG_STATUS 0x07
-#define REG_RX_ADDR_P0 0x0A
-#define REG_RX_ADDR_P1 0x0B
-#define REG_RX_ADDR_P2 0x0C
-#define REG_RX_ADDR_P3 0x0D
-#define REG_RX_ADDR_P4 0x0E
-#define REG_RX_ADDR_P5 0x0F
-#define REG_RF_CH 0x05
-#define REG_TX_ADDR 0x10
+#define REG_CONFIG      0x00
+#define REG_EN_AA       0x01
+#define REG_EN_RXADDR   0x02
+#define REG_SETUP_AW    0x03
+#define REG_SETUP_RETR  0x04
+#define REG_DYNPD       0x1C
+#define REG_FEATURE     0x1D
+#define REG_RF_SETUP    0x06
+#define REG_STATUS      0x07
+#define REG_RX_ADDR_P0  0x0A
+#define REG_RX_ADDR_P1  0x0B
+#define REG_RX_ADDR_P2  0x0C
+#define REG_RX_ADDR_P3  0x0D
+#define REG_RX_ADDR_P4  0x0E
+#define REG_RX_ADDR_P5  0x0F
+#define REG_RF_CH       0x05
+#define REG_TX_ADDR     0x10
 #define REG_FIFO_STATUS 0x17
-#define REG_OBSERVE_TX 0x08
+#define REG_OBSERVE_TX  0x08
 
-#define RX_PW_P0 0x11
-#define RX_PW_P1 0x12
-#define RX_PW_P2 0x13
-#define RX_PW_P3 0x14
-#define RX_PW_P4 0x15
-#define RX_PW_P5 0x16
-#define RX_DR    0x40
-#define TX_DS    0x20
-#define MAX_RT   0x10
+#define RX_PW_P0         0x11
+#define RX_PW_P1         0x12
+#define RX_PW_P2         0x13
+#define RX_PW_P3         0x14
+#define RX_PW_P4         0x15
+#define RX_PW_P5         0x16
+#define RX_DR            0x40
+#define TX_DS            0x20
+#define MAX_RT           0x10
 #define NRF24_EN_DYN_ACK 0x01
 
 #define nrf24_TIMEOUT 500
-#define nrf24_CE_PIN &gpio_ext_pb2
-#define nrf24_HANDLE                                                                         \
+#define nrf24_CE_PIN  &gpio_ext_pb2
+#define nrf24_HANDLE                                                                        \
     (cfw_settings.spi_nrf24_handle == SpiDefault ? &furi_hal_spi_bus_handle_external : \
-                                                         &furi_hal_spi_bus_handle_external_extra)
+                                                        &furi_hal_spi_bus_handle_external_extra)
 
 /* Low level API */
 
@@ -318,7 +318,7 @@ void nrf24_configure(
     bool disable_aa);
 
 // Set mac address (MSB first), Return: Status
-uint8_t  nrf24_set_mac(uint8_t mac_addr, uint8_t *mac, uint8_t mlen);
+uint8_t nrf24_set_mac(uint8_t mac_addr, uint8_t* mac, uint8_t mlen);
 
 /** Configures the radio for "promiscuous mode" and primes it for rx
  * This is not an actual mode of the nrf24, but this function exploits a few bugs in the chip that allows it to act as if it were.
