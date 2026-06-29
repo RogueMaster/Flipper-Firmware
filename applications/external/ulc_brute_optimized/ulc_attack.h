@@ -21,7 +21,7 @@
  * @param app Application context containing key data and state
  * @return true if key is found, false otherwise
  */
-bool test_next_key(const FuriHalSpiBusHandle* handle, AppContext* app) {
+bool test_next_key(FuriHalSpiBusHandle* handle, AppContext* app) {
     // Pre-declare all variables at the top to avoid stack reallocations
     size_t rx_bits = 0;
     uint8_t read_page_cmd[2] = {ULC_CMD_READ, 0x00}; // Command to read page 0

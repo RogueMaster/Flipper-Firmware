@@ -91,9 +91,7 @@ static void save_message(FuriString* save_string) {
 static bool load_messages() {
     Storage* storage = (Storage*)furi_record_open(RECORD_STORAGE);
     storage_common_migrate(storage, EXT_PATH("apps_data/sam.txt"), SAM_SAVE_PATH);
-    storage_common_remove(storage, EXT_PATH("apps_data/sam.txt"));
     storage_common_migrate(storage, EXT_PATH("sam.txt"), SAM_SAVE_PATH);
-    storage_common_remove(storage, EXT_PATH("sam.txt"));
     File* file = storage_file_alloc(storage);
     uint16_t bytes_read = 0;
     if(storage_file_open(file, SAM_SAVE_PATH, FSAM_READ, FSOM_OPEN_EXISTING)) {

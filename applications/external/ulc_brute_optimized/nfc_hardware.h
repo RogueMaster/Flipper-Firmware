@@ -13,7 +13,7 @@
  * @param handle SPI bus handle for communication with ST25R3916
  * @return 0 on success, error code on failure
  */
-int32_t nfc_init(const FuriHalSpiBusHandle* handle) {
+int32_t nfc_init(FuriHalSpiBusHandle* handle) {
     FURI_LOG_D("NFC", "Initializing NFC field");
 
     // Reset chip to known state
@@ -77,7 +77,7 @@ int32_t nfc_init(const FuriHalSpiBusHandle* handle) {
  * 
  * @param handle SPI bus handle for communication with ST25R3916
  */
-void nfc_deinit(const FuriHalSpiBusHandle* handle) {
+void nfc_deinit(FuriHalSpiBusHandle* handle) {
     FURI_LOG_I(TAG, "Disabling NFC field");
 
     // Disable all RF operations

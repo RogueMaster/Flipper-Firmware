@@ -85,10 +85,6 @@ static void LidarEmulatorApp_free(LidarEmulatorApp* lidaremulator) {
 
 int lidar_emulator_app(void* p) {
     UNUSED(p);
-    // Disable expansion protocol to avoid interference with UART Handle
-    Expansion* expansion = furi_record_open(RECORD_EXPANSION);
-    expansion_disable(expansion);
-    bool otg_was_enabled = furi_hal_power_is_otg_enabled();
 
     LidarEmulatorApp* lidaremulator = LidarEmulatorApp_alloc();
 
@@ -101,11 +97,5 @@ int lidar_emulator_app(void* p) {
 
     LidarEmulatorApp_free(lidaremulator);
 
-    if(furi_hal_power_is_otg_enabled() && !otg_was_enabled) {
-        furi_hal_power_disable_otg();
-    }
-    // Return previous state of expansion
-    expansion_enable(expansion);
-    furi_record_close(RECORD_EXPANSION);
     return 0;
 }

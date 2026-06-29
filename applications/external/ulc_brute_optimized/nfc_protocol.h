@@ -74,8 +74,7 @@ void clear_rx_buffer(uint8_t* buffer, size_t bits) {
  * @param response_length Length of received response in bytes
  * @return 0 on success, negative error code on failure
  */
-int32_t
-    nfc_send_wupa(const FuriHalSpiBusHandle* handle, uint8_t* response, size_t* response_length) {
+int32_t nfc_send_wupa(FuriHalSpiBusHandle* handle, uint8_t* response, size_t* response_length) {
     // Reset communication state
     st25r3916_direct_cmd(handle, ST25R3916_CMD_CLEAR_FIFO);
     st25r3916_get_irq(handle);
@@ -112,10 +111,8 @@ int32_t
  * Debug version of WUPA command with extensive logging
  * Same parameters as non-debug version but adds detailed logging
  */
-int32_t nfc_send_wupa_debug(
-    const FuriHalSpiBusHandle* handle,
-    uint8_t* response,
-    size_t* response_length) {
+int32_t
+    nfc_send_wupa_debug(FuriHalSpiBusHandle* handle, uint8_t* response, size_t* response_length) {
     FURI_LOG_D("NFC", "Starting WUPA sequence");
 
     // Clear FIFO & interrupts
@@ -213,7 +210,7 @@ int32_t nfc_send_wupa_debug(
  * @param handle SPI bus handle
  * @return true if valid ATQA received (2 bytes, first byte 0x44)
  */
-bool nfc_send_wupa_and_validate(const FuriHalSpiBusHandle* handle) {
+bool nfc_send_wupa_and_validate(FuriHalSpiBusHandle* handle) {
     uint8_t rx_buffer[2];
     size_t rx_length = 0;
 
@@ -224,7 +221,7 @@ bool nfc_send_wupa_and_validate(const FuriHalSpiBusHandle* handle) {
 /**
  * Debug version of WUPA validation with error logging
  */
-bool nfc_send_wupa_and_validate_debug(const FuriHalSpiBusHandle* handle) {
+bool nfc_send_wupa_and_validate_debug(FuriHalSpiBusHandle* handle) {
     uint8_t rx_buffer[2];
     size_t rx_length = 0;
 
@@ -251,7 +248,7 @@ bool nfc_send_wupa_and_validate_debug(const FuriHalSpiBusHandle* handle) {
  * @return true on successful exchange
  */
 bool nfc_transceive(
-    const FuriHalSpiBusHandle* handle,
+    FuriHalSpiBusHandle* handle,
     uint8_t* tx_buffer,
     uint8_t tx_bits,
     uint8_t* rx_buffer,
@@ -312,7 +309,7 @@ bool nfc_transceive(
  * Debug version of basic NFC transceive
  */
 bool nfc_transceive_debug(
-    const FuriHalSpiBusHandle* handle,
+    FuriHalSpiBusHandle* handle,
     uint8_t* tx_buffer,
     uint8_t tx_bits,
     uint8_t* rx_buffer,
@@ -429,7 +426,7 @@ bool nfc_validate_response(
  * Combined transceive and validate function
  */
 bool nfc_transceive_and_validate(
-    const FuriHalSpiBusHandle* handle,
+    FuriHalSpiBusHandle* handle,
     uint8_t* tx_buffer,
     uint8_t tx_bits,
     uint8_t* rx_buffer,
@@ -444,7 +441,7 @@ bool nfc_transceive_and_validate(
  * Debug version of combined transceive and validate
  */
 bool nfc_transceive_and_validate_debug(
-    const FuriHalSpiBusHandle* handle,
+    FuriHalSpiBusHandle* handle,
     uint8_t* tx_buffer,
     uint8_t tx_bits,
     uint8_t* rx_buffer,
@@ -476,7 +473,7 @@ bool nfc_transceive_and_validate_debug(
 }
 
 // Add new function for transmit-only operations (no FIFO read)
-bool nfc_transmit_only(const FuriHalSpiBusHandle* handle, uint8_t* tx_buffer, uint8_t tx_bits) {
+bool nfc_transmit_only(FuriHalSpiBusHandle* handle, uint8_t* tx_buffer, uint8_t tx_bits) {
     // Reset communication state
     st25r3916_direct_cmd(handle, ST25R3916_CMD_CLEAR_FIFO);
     st25r3916_get_irq(handle);

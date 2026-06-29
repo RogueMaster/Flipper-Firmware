@@ -117,7 +117,7 @@ typedef struct {
     InputEvent input;
 } AppEvent;
 
-static void setup_nfc_field(const FuriHalSpiBusHandle* handle) {
+static void setup_nfc_field(FuriHalSpiBusHandle* handle) {
     FURI_LOG_I(TAG, "setup_nfc_field");
     st25r3916_direct_cmd(handle, ST25R3916_CMD_SET_DEFAULT);
     furi_delay_ms(1);
@@ -173,7 +173,7 @@ static void setup_nfc_field(const FuriHalSpiBusHandle* handle) {
     FURI_LOG_I(TAG, "RF field enabled");
 }
 
-static void disable_nfc_field(const FuriHalSpiBusHandle* handle) {
+static void disable_nfc_field(FuriHalSpiBusHandle* handle) {
     FURI_LOG_I(TAG, "Disabling NFC field");
     st25r3916_write_reg(handle, ST25R3916_REG_OP_CONTROL, 0x00);
     st25r3916_direct_cmd(handle, ST25R3916_CMD_SET_DEFAULT);
@@ -207,7 +207,7 @@ static void log_rx_data(uint8_t* rx_buffer, size_t rx_bits) {
 }
 
 static bool send_receive_command(
-    const FuriHalSpiBusHandle* handle,
+    FuriHalSpiBusHandle* handle,
     const uint8_t* tx_data,
     size_t tx_bits,
     uint8_t* rx_buffer,
@@ -246,7 +246,7 @@ static bool send_receive_command(
     return false;
 }
 
-static bool initialize_card(const FuriHalSpiBusHandle* handle, AppContext* app) {
+static bool initialize_card(FuriHalSpiBusHandle* handle, AppContext* app) {
     uint8_t rx_buffer[32];
     size_t rx_bits = 0;
 
@@ -384,7 +384,7 @@ static void handle_rx(AppContext* app) {
     }
 }
 
-static bool send_auth1_command(const FuriHalSpiBusHandle* handle, AppContext* app) {
+static bool send_auth1_command(FuriHalSpiBusHandle* handle, AppContext* app) {
     uint8_t auth1_cmd[4] = {0x1A, 0x00};
     uint8_t rx_buffer[64];
     size_t rx_bits = 0;
