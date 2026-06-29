@@ -414,11 +414,6 @@ static StorageAnimation*
             animation_storage_get_meta(storage_animation);
         bool valid = animation_manager_is_valid_idle_animation(manifest_info, &stats);
 
-        if(strcmp(manifest_info->name, HARDCODED_ANIMATION_NAME) == 0) {
-            // Dont pick error anim randomly
-            valid = false;
-        }
-
         if(valid) {
             StorageAnimationList_next(it);
         } else {

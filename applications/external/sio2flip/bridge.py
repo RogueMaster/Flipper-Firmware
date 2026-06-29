@@ -13,6 +13,7 @@ import logging
 import time
 import argparse
 
+
 def serial_to_tcp(ser, sock, stop_event):
     """Continuously read data from the serial port and send it to the TCP server."""
     while not stop_event.is_set():
@@ -27,6 +28,7 @@ def serial_to_tcp(ser, sock, stop_event):
             break
         # Sleep briefly to reduce CPU usage
         time.sleep(0.01)
+
 
 def tcp_to_serial(ser, sock, stop_event):
     """Continuously read data from the TCP connection and write it to the serial port."""
@@ -44,20 +46,37 @@ def tcp_to_serial(ser, sock, stop_event):
             break
         time.sleep(0.01)
 
+
 def parse_arguments():
     """Parse command line arguments."""
-    parser = argparse.ArgumentParser(description="Bridge data between a serial port and a TCP connection.")
-    parser.add_argument("SERIAL_PORT", help="Serial port to read from (e.g. /dev/ttyUSB0 or COM3)")
-    parser.add_argument("TCP_SERVER", help="TCP server hostname or IP (e.g. telehack.com)")
-    parser.add_argument("--port", type=int, default=23, help="TCP port number (default: 23)")
-    parser.add_argument("--baudrate", type=int, default=19200, help="Baudrate for the serial port (default: 19200)")
+    parser = argparse.ArgumentParser(
+        description="Bridge data between a serial port and a TCP connection."
+    )
+    parser.add_argument(
+        "SERIAL_PORT", help="Serial port to read from (e.g. /dev/ttyUSB0 or COM3)"
+    )
+    parser.add_argument(
+        "TCP_SERVER", help="TCP server hostname or IP (e.g. telehack.com)"
+    )
+    parser.add_argument(
+        "--port", type=int, default=23, help="TCP port number (default: 23)"
+    )
+    parser.add_argument(
+        "--baudrate",
+        type=int,
+        default=19200,
+        help="Baudrate for the serial port (default: 19200)",
+    )
     return parser.parse_args()
+
 
 def main():
     args = parse_arguments()
 
     # Setup basic logging
-    logging.basicConfig(level=logging.INFO, format='%(asctime)s [%(levelname)s] %(message)s')
+    logging.basicConfig(
+        level=logging.INFO, format="%(asctime)s [%(levelname)s] %(message)s"
+    )
 
     stop_event = threading.Event()
     ser = None
@@ -66,7 +85,9 @@ def main():
     try:
         # Open the serial port
         ser = serial.Serial(args.SERIAL_PORT, args.baudrate, timeout=0)
-        logging.info("Opened serial port %s at %d baud.", args.SERIAL_PORT, args.baudrate)
+        logging.info(
+            "Opened serial port %s at %d baud.", args.SERIAL_PORT, args.baudrate
+        )
 
         # Create a TCP socket and connect to the remote server
         sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
@@ -74,8 +95,12 @@ def main():
         logging.info("Connected to TCP server %s:%d.", args.TCP_SERVER, args.port)
 
         # Create and start threads for bidirectional data transfer
-        t_serial = threading.Thread(target=serial_to_tcp, args=(ser, sock, stop_event), daemon=True)
-        t_tcp = threading.Thread(target=tcp_to_serial, args=(ser, sock, stop_event), daemon=True)
+        t_serial = threading.Thread(
+            target=serial_to_tcp, args=(ser, sock, stop_event), daemon=True
+        )
+        t_tcp = threading.Thread(
+            target=tcp_to_serial, args=(ser, sock, stop_event), daemon=True
+        )
         t_serial.start()
         t_tcp.start()
 
@@ -91,9 +116,9 @@ def main():
         stop_event.set()  # signal threads to stop
 
         # Wait for threads to finish cleanly
-        if 't_serial' in locals():
+        if "t_serial" in locals():
             t_serial.join(timeout=2)
-        if 't_tcp' in locals():
+        if "t_tcp" in locals():
             t_tcp.join(timeout=2)
 
         # Attempt to shut down and close the TCP socket
@@ -109,5 +134,6 @@ def main():
 
         logging.info("Closed connections. Exiting.")
 
-if __name__ == '__main__':
+
+if __name__ == "__main__":
     main()

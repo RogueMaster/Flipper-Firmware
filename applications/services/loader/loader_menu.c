@@ -316,8 +316,8 @@ static void loader_menu_build_menu(LoaderMenuApp* app, LoaderMenu* menu) {
                     furi_string_set(line, "125 kHz RFID");
                 } else if(furi_string_equal(line, "SubGHz")) {
                     furi_string_set(line, "Sub-GHz");
-                } else if(furi_string_equal(line, "Xtreme")) {
-                    furi_string_set(line, "Momentum");
+                } else if(furi_string_equal(line, "CFW")) {
+                    furi_string_set(line, "CFW");
                 }
             }
             loader_menu_find_add_app(app, storage, line);
