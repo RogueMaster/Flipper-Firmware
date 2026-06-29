@@ -131,10 +131,7 @@ static void loader_pubsub_callback(const void* message, void* context) {
 
 static void
     loader_applications_start_app(LoaderApplicationsApp* app, const char* name, const char* args) {
-    if(!furi_string_start_with_str(app->file_path, EXT_PATH("apps/Games/")) &&
-       !furi_string_start_with_str(app->file_path, EXT_PATH("apps/Media/"))) {
-        dolphin_deed(DolphinDeedPluginInternalStart);
-    }
+    dolphin_deed(DolphinDeedPluginInternalStart);
 
     // load app
     FuriThreadId thread_id = furi_thread_get_current_id();

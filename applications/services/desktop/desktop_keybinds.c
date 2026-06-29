@@ -7,6 +7,7 @@
 #include <storage/storage.h>
 #include <saved_struct.h>
 #include <input/input.h>
+#include <cfw/settings.h>
 
 #define TAG "DesktopKeybinds"
 
@@ -38,14 +39,10 @@ void desktop_keybinds_migrate(Desktop* desktop) {
                     FuriString* keybind = furi_string_alloc_set(old[type][key].data);
                     if(furi_string_empty(keybind)) {
                         furi_string_set_str(keybind, "_");
-                    } else if(furi_string_equal(keybind, EXT_PATH("apps/Main/dab_timer.fap"))) {
-                        furi_string_set(keybind, "Dab Timer");
                     } else if(furi_string_equal(keybind, "RFID")) {
                         furi_string_set(keybind, "125 kHz RFID");
                     } else if(furi_string_equal(keybind, "SubGHz")) {
                         furi_string_set(keybind, "Sub-GHz");
-                    } else if(furi_string_equal(keybind, "CFW")) {
-                        furi_string_set(keybind, "CFW");
                     }
                     new[type][key] = keybind;
                 }
@@ -64,7 +61,7 @@ const char* desktop_keybinds_defaults[DesktopKeybindTypeMAX][DesktopKeybindKeyMA
             [DesktopKeybindKeyUp] = "Lock Menu",
             [DesktopKeybindKeyDown] = "Archive",
             [DesktopKeybindKeyRight] = "Passport",
-            [DesktopKeybindKeyLeft] = "Dab Timer",
+            [DesktopKeybindKeyLeft] = EXT_PATH("apps/Main/dab_timer.fap"),
         },
     [DesktopKeybindTypeHold] =
         {
@@ -72,6 +69,23 @@ const char* desktop_keybinds_defaults[DesktopKeybindTypeMAX][DesktopKeybindKeyMA
             [DesktopKeybindKeyDown] = "_",
             [DesktopKeybindKeyRight] = "Device Info",
             [DesktopKeybindKeyLeft] = "Lock with PIN",
+        },
+};
+
+const char* desktop_keybinds_game_mode[DesktopKeybindTypeMAX][DesktopKeybindKeyMAX] = {
+    [DesktopKeybindTypePress] =
+        {
+            [DesktopKeybindKeyUp] = "Lock Menu",
+            [DesktopKeybindKeyDown] = EXT_PATH("apps/Games/tetris.fap"),
+            [DesktopKeybindKeyRight] = "Passport",
+            [DesktopKeybindKeyLeft] = EXT_PATH("apps/Games/snake.fap"),
+        },
+    [DesktopKeybindTypeHold] =
+        {
+            [DesktopKeybindKeyUp] = EXT_PATH("apps/Games/2048_improved.fap"),
+            [DesktopKeybindKeyDown] = EXT_PATH("apps/Games/zombiez.fap"),
+            [DesktopKeybindKeyRight] = EXT_PATH("apps/Games/doom.fap"),
+            [DesktopKeybindKeyLeft] = EXT_PATH("apps/Main/dab_timer.fap"),
         },
 };
 
@@ -93,7 +107,7 @@ static FuriString*
     FuriString* keybind = furi_string_alloc();
     FlipperFormat* file = flipper_format_file_alloc(desktop->storage);
 
-    if(flipper_format_file_open_existing(file, DESKTOP_KEYBINDS_PATH)) {
+    if(!cfw_settings.game_mode && flipper_format_file_open_existing(file, DESKTOP_KEYBINDS_PATH)) {
         FuriString* keybind_name = furi_string_alloc_printf(
             "%s%s", desktop_keybind_types[type], desktop_keybind_keys[key]);
         success = flipper_format_read_string(file, furi_string_get_cstr(keybind_name), keybind);
@@ -103,7 +117,11 @@ static FuriString*
     flipper_format_free(file);
     if(!success) {
         FURI_LOG_W(TAG, "Failed to load file, using defaults");
-        furi_string_set(keybind, desktop_keybinds_defaults[type][key]);
+        if(cfw_settings.game_mode) {
+            furi_string_set(keybind, desktop_keybinds_game_mode[type][key]);
+        } else {
+            furi_string_set(keybind, desktop_keybinds_defaults[type][key]);
+        }
     }
     return keybind;
 }
@@ -111,7 +129,8 @@ static FuriString*
 void desktop_keybinds_load(Desktop* desktop, DesktopKeybinds* keybinds) {
     for(DesktopKeybindType type = 0; type < DesktopKeybindTypeMAX; type++) {
         for(DesktopKeybindKey key = 0; key < DesktopKeybindKeyMAX; key++) {
-            const char* default_keybind = desktop_keybinds_defaults[type][key];
+            const char* default_keybind;
+            default_keybind = desktop_keybinds_defaults[type][key];
             if((*keybinds)[type][key]) {
                 furi_string_set((*keybinds)[type][key], default_keybind);
             } else {
@@ -204,9 +223,6 @@ void desktop_run_keybind(Desktop* desktop, InputType _type, InputKey _key) {
         loader_start_detached_with_gui_error(desktop->loader, LOADER_APPLICATIONS_NAME, NULL);
     } else if(furi_string_equal(keybind, "Archive")) {
         desktop_launch_archive(desktop, NULL);
-    } else if(furi_string_equal(keybind, "Dab Timer")) {
-        loader_start_detached_with_gui_error(
-            desktop->loader, EXT_PATH("apps/Main/dab_timer.fap"), "");
     } else if(furi_string_equal(keybind, "Passport")) {
         loader_start_detached_with_gui_error(
             desktop->loader, EXT_PATH("apps/Settings/passport.fap"), "");

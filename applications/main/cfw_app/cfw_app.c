@@ -487,6 +487,8 @@ extern int32_t cfw_app(void* p) {
     if(p && strlen(p)) {
         if(!strcmp(p, "MiscScreen")) {
             first_scene = CFWAppSceneMiscScreen;
+        } else if(!strcmp(p, "Interface")) {
+            first_scene = CFWAppSceneInterface;
         }
     }
 

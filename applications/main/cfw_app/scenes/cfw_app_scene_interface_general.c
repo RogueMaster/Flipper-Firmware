@@ -68,10 +68,12 @@ void cfw_app_scene_interface_general_on_enter(void* context) {
     variable_item_set_current_value_text(
         item, cfw_settings.midnight_format_00 ? "00:XX" : "12:XX");
 
-    item = variable_item_list_add(
-        var_item_list, "Game Mode", 2, cfw_app_scene_interface_general_game_mode_changed, app);
-    variable_item_set_current_value_index(item, cfw_settings.game_mode);
-    variable_item_set_current_value_text(item, cfw_settings.game_mode ? "ON" : "OFF");
+    if(!cfw_settings.game_mode) {
+        item = variable_item_list_add(
+            var_item_list, "Game Mode", 2, cfw_app_scene_interface_general_game_mode_changed, app);
+        variable_item_set_current_value_index(item, cfw_settings.game_mode);
+        variable_item_set_current_value_text(item, cfw_settings.game_mode ? "ON" : "OFF");
+    }
 
     item = variable_item_list_add(
         var_item_list,

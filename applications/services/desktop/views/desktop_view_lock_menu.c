@@ -1,4 +1,5 @@
 #include <furi.h>
+#include <dolphin/dolphin.h>
 #include <gui/elements.h>
 #include <assets_icons.h>
 #include <cfw/cfw.h>
@@ -16,11 +17,11 @@ static const NotificationSequence sequence_note_c = {
 
 typedef enum {
     DesktopLockMenuIndexLefthandedMode,
-    DesktopLockMenuIndexSettings,
+    DesktopLockMenuIndexGameMode,
     DesktopLockMenuIndexDarkMode,
     DesktopLockMenuIndexLock,
     DesktopLockMenuIndexBluetooth,
-    DesktopLockMenuIndexMomentum,
+    DesktopLockMenuIndexCFW,
     DesktopLockMenuIndexBrightness,
     DesktopLockMenuIndexVolume,
 
@@ -96,8 +97,9 @@ void desktop_lock_menu_draw_callback(Canvas* canvas, void* model) {
             icon = &I_CC_LefthandedMode_16x16;
             enabled = furi_hal_rtc_is_flag_set(FuriHalRtcFlagHandOrient);
             break;
-        case DesktopLockMenuIndexSettings:
-            icon = &I_CC_Settings_16x16;
+        case DesktopLockMenuIndexGameMode:
+            icon = &I_CC_GameMode_16x16;
+            enabled = cfw_settings.game_mode;
             break;
         case DesktopLockMenuIndexDarkMode:
             icon = &I_CC_DarkMode_16x16;
@@ -110,8 +112,8 @@ void desktop_lock_menu_draw_callback(Canvas* canvas, void* model) {
             icon = &I_CC_Bluetooth_16x16;
             enabled = m->lock_menu->bt->bt_settings.enabled;
             break;
-        case DesktopLockMenuIndexMomentum:
-            icon = &I_CC_Momentum_16x16;
+        case DesktopLockMenuIndexCFW:
+            icon = &I_CC_CFW_16x16;
             break;
         case DesktopLockMenuIndexBrightness:
             icon = &I_Pin_star_7x7;
@@ -288,12 +290,16 @@ bool desktop_lock_menu_input_callback(InputEvent* event, void* context) {
                     furi_hal_rtc_set_flag(FuriHalRtcFlagHandOrient);
                 }
                 break;
-            case DesktopLockMenuIndexSettings:
-                desktop_event = DesktopLockMenuEventSettings;
+            case DesktopLockMenuIndexGameMode:
+                if(!cfw_settings.game_mode) {
+                    dolphin_deed(getRandomDeed());
+                    cfw_settings.game_mode = true;
+                    lock_menu->save_cfw = true;
+                }
                 break;
             case DesktopLockMenuIndexDarkMode:
                 cfw_settings.dark_mode = !cfw_settings.dark_mode;
-                lock_menu->save_momentum = true;
+                lock_menu->save_cfw = true;
                 break;
             case DesktopLockMenuIndexBluetooth:
                 lock_menu->bt->bt_settings.enabled = !lock_menu->bt->bt_settings.enabled;
@@ -304,8 +310,8 @@ bool desktop_lock_menu_input_callback(InputEvent* event, void* context) {
                 }
                 lock_menu->save_bt = true;
                 break;
-            case DesktopLockMenuIndexMomentum:
-                desktop_event = DesktopLockMenuEventMomentum;
+            case DesktopLockMenuIndexCFW:
+                desktop_event = DesktopLockMenuEventCFW;
                 break;
             case DesktopLockMenuIndexBrightness:
                 desktop_event = DesktopLockMenuEventScreenSettings;

@@ -317,7 +317,7 @@ static void loader_menu_build_menu(LoaderMenuApp* app, LoaderMenu* menu) {
                 } else if(furi_string_equal(line, "SubGHz")) {
                     furi_string_set(line, "Sub-GHz");
                 } else if(furi_string_equal(line, "CFW")) {
-                    furi_string_set(line, "CFW");
+                    furi_string_set(line, "CFW Settings");
                 }
             }
             loader_menu_find_add_app(app, storage, line);

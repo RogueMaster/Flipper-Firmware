@@ -4,7 +4,7 @@
 #include <toolbox/saved_struct.h>
 #include <stdbool.h>
 #include <loader/loader.h>
-#include <cfw/cfw.h>
+#include <cfw/settings.h>
 
 #include "../desktop_i.h"
 #include <desktop/desktop_settings.h>
@@ -46,9 +46,9 @@ void desktop_scene_lock_menu_save_settings(Desktop* desktop) {
         notification_message_save_settings(desktop->lock_menu->notification);
         desktop->lock_menu->save_notification = false;
     }
-    if(desktop->lock_menu->save_momentum) {
+    if(desktop->lock_menu->save_cfw) {
         cfw_settings_save();
-        desktop->lock_menu->save_momentum = false;
+        desktop->lock_menu->save_cfw = false;
     }
     if(desktop->lock_menu->save_bt) {
         bt_settings_save(&desktop->lock_menu->bt->bt_settings);
@@ -77,12 +77,6 @@ bool desktop_scene_lock_menu_on_event(void* context, SceneManagerEvent event) {
         }
     } else if(event.type == SceneManagerEventTypeCustom) {
         switch(event.event) {
-        case DesktopLockMenuEventSettings:
-            desktop_scene_lock_menu_save_settings(desktop);
-            loader_show_settings(furi_record_open(RECORD_LOADER));
-            furi_record_close(RECORD_LOADER);
-            consumed = true;
-            break;
         case DesktopLockMenuEventLockKeypad:
             desktop_scene_lock_menu_save_settings(desktop);
             desktop_lock(desktop, false);
@@ -116,14 +110,18 @@ bool desktop_scene_lock_menu_on_event(void* context, SceneManagerEvent event) {
             }
             consumed = true;
             break;
-        case DesktopLockMenuEventMomentum:
+        case DesktopLockMenuEventCFW:
             desktop_scene_lock_menu_save_settings(desktop);
-            loader_start_detached_with_gui_error(desktop->loader, "Momentum", NULL);
+            if(cfw_settings.game_mode) {
+                loader_start_detached_with_gui_error(desktop->loader, "CFW Settings", "Interface");
+            } else {
+                loader_start_detached_with_gui_error(desktop->loader, "CFW Settings", NULL);
+            }
             consumed = true;
             break;
         case DesktopLockMenuEventScreenSettings:
             desktop_scene_lock_menu_save_settings(desktop);
-            loader_start_detached_with_gui_error(desktop->loader, "Momentum", "MiscScreen");
+            loader_start_detached_with_gui_error(desktop->loader, "CFW Settings", "MiscScreen");
             consumed = true;
             break;
         case DesktopLockMenuEventStealthModeOn:
